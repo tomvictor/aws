@@ -1,0 +1,1153 @@
+{
+ "Resources": {
+  "GorfVpc39238CDC": {
+   "Type": "AWS::EC2::VPC",
+   "Properties": {
+    "CidrBlock": "10.0.0.0/16",
+    "EnableDnsHostnames": true,
+    "EnableDnsSupport": true,
+    "InstanceTenancy": "default",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "Gorf/GorfVpc"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Gorf/GorfVpc/Resource"
+   }
+  },
+  "GorfVpcPublicSubnet1SubnetECFA1C03": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "VpcId": {
+     "Ref": "GorfVpc39238CDC"
+    },
+    "AvailabilityZone": {
+     "Fn::Select": [
+      0,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.0.0/18",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "Gorf/GorfVpc/PublicSubnet1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Gorf/GorfVpc/PublicSubnet1/Subnet"
+   }
+  },
+  "GorfVpcPublicSubnet1RouteTableE3975EB8": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "VpcId": {
+     "Ref": "GorfVpc39238CDC"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "Gorf/GorfVpc/PublicSubnet1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Gorf/GorfVpc/PublicSubnet1/RouteTable"
+   }
+  },
+  "GorfVpcPublicSubnet1RouteTableAssociation4ECF0300": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "GorfVpcPublicSubnet1RouteTableE3975EB8"
+    },
+    "SubnetId": {
+     "Ref": "GorfVpcPublicSubnet1SubnetECFA1C03"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Gorf/GorfVpc/PublicSubnet1/RouteTableAssociation"
+   }
+  },
+  "GorfVpcPublicSubnet1DefaultRoute555A7C12": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "GorfVpcPublicSubnet1RouteTableE3975EB8"
+    },
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "GorfVpcIGW9A6552C9"
+    }
+   },
+   "DependsOn": [
+    "GorfVpcVPCGW1803CC12"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "Gorf/GorfVpc/PublicSubnet1/DefaultRoute"
+   }
+  },
+  "GorfVpcPublicSubnet1EIP5C4E08ED": {
+   "Type": "AWS::EC2::EIP",
+   "Properties": {
+    "Domain": "vpc",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "Gorf/GorfVpc/PublicSubnet1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Gorf/GorfVpc/PublicSubnet1/EIP"
+   }
+  },
+  "GorfVpcPublicSubnet1NATGateway794E44B3": {
+   "Type": "AWS::EC2::NatGateway",
+   "Properties": {
+    "SubnetId": {
+     "Ref": "GorfVpcPublicSubnet1SubnetECFA1C03"
+    },
+    "AllocationId": {
+     "Fn::GetAtt": [
+      "GorfVpcPublicSubnet1EIP5C4E08ED",
+      "AllocationId"
+     ]
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "Gorf/GorfVpc/PublicSubnet1"
+     }
+    ]
+   },
+   "DependsOn": [
+    "GorfVpcPublicSubnet1DefaultRoute555A7C12",
+    "GorfVpcPublicSubnet1RouteTableAssociation4ECF0300"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "Gorf/GorfVpc/PublicSubnet1/NATGateway"
+   }
+  },
+  "GorfVpcPublicSubnet2Subnet21B0C38E": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "VpcId": {
+     "Ref": "GorfVpc39238CDC"
+    },
+    "AvailabilityZone": {
+     "Fn::Select": [
+      1,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.64.0/18",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "Gorf/GorfVpc/PublicSubnet2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Gorf/GorfVpc/PublicSubnet2/Subnet"
+   }
+  },
+  "GorfVpcPublicSubnet2RouteTable8A16B9A8": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "VpcId": {
+     "Ref": "GorfVpc39238CDC"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "Gorf/GorfVpc/PublicSubnet2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Gorf/GorfVpc/PublicSubnet2/RouteTable"
+   }
+  },
+  "GorfVpcPublicSubnet2RouteTableAssociationE1C27B61": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "GorfVpcPublicSubnet2RouteTable8A16B9A8"
+    },
+    "SubnetId": {
+     "Ref": "GorfVpcPublicSubnet2Subnet21B0C38E"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Gorf/GorfVpc/PublicSubnet2/RouteTableAssociation"
+   }
+  },
+  "GorfVpcPublicSubnet2DefaultRouteABDC982D": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "GorfVpcPublicSubnet2RouteTable8A16B9A8"
+    },
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "GorfVpcIGW9A6552C9"
+    }
+   },
+   "DependsOn": [
+    "GorfVpcVPCGW1803CC12"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "Gorf/GorfVpc/PublicSubnet2/DefaultRoute"
+   }
+  },
+  "GorfVpcPublicSubnet2EIPC82E5C4C": {
+   "Type": "AWS::EC2::EIP",
+   "Properties": {
+    "Domain": "vpc",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "Gorf/GorfVpc/PublicSubnet2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Gorf/GorfVpc/PublicSubnet2/EIP"
+   }
+  },
+  "GorfVpcPublicSubnet2NATGatewayAFA32406": {
+   "Type": "AWS::EC2::NatGateway",
+   "Properties": {
+    "SubnetId": {
+     "Ref": "GorfVpcPublicSubnet2Subnet21B0C38E"
+    },
+    "AllocationId": {
+     "Fn::GetAtt": [
+      "GorfVpcPublicSubnet2EIPC82E5C4C",
+      "AllocationId"
+     ]
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "Gorf/GorfVpc/PublicSubnet2"
+     }
+    ]
+   },
+   "DependsOn": [
+    "GorfVpcPublicSubnet2DefaultRouteABDC982D",
+    "GorfVpcPublicSubnet2RouteTableAssociationE1C27B61"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "Gorf/GorfVpc/PublicSubnet2/NATGateway"
+   }
+  },
+  "GorfVpcPrivateSubnet1Subnet31CDE3A7": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "VpcId": {
+     "Ref": "GorfVpc39238CDC"
+    },
+    "AvailabilityZone": {
+     "Fn::Select": [
+      0,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.128.0/18",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "Name",
+      "Value": "Gorf/GorfVpc/PrivateSubnet1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Gorf/GorfVpc/PrivateSubnet1/Subnet"
+   }
+  },
+  "GorfVpcPrivateSubnet1RouteTable54A2C521": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "VpcId": {
+     "Ref": "GorfVpc39238CDC"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "Gorf/GorfVpc/PrivateSubnet1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Gorf/GorfVpc/PrivateSubnet1/RouteTable"
+   }
+  },
+  "GorfVpcPrivateSubnet1RouteTableAssociation1FE44D3E": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "GorfVpcPrivateSubnet1RouteTable54A2C521"
+    },
+    "SubnetId": {
+     "Ref": "GorfVpcPrivateSubnet1Subnet31CDE3A7"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Gorf/GorfVpc/PrivateSubnet1/RouteTableAssociation"
+   }
+  },
+  "GorfVpcPrivateSubnet1DefaultRoute3EC59D2D": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "GorfVpcPrivateSubnet1RouteTable54A2C521"
+    },
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "GorfVpcPublicSubnet1NATGateway794E44B3"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Gorf/GorfVpc/PrivateSubnet1/DefaultRoute"
+   }
+  },
+  "GorfVpcPrivateSubnet2SubnetF7832214": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "VpcId": {
+     "Ref": "GorfVpc39238CDC"
+    },
+    "AvailabilityZone": {
+     "Fn::Select": [
+      1,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.192.0/18",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "Name",
+      "Value": "Gorf/GorfVpc/PrivateSubnet2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Gorf/GorfVpc/PrivateSubnet2/Subnet"
+   }
+  },
+  "GorfVpcPrivateSubnet2RouteTable435074B8": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "VpcId": {
+     "Ref": "GorfVpc39238CDC"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "Gorf/GorfVpc/PrivateSubnet2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Gorf/GorfVpc/PrivateSubnet2/RouteTable"
+   }
+  },
+  "GorfVpcPrivateSubnet2RouteTableAssociationD8662C64": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "GorfVpcPrivateSubnet2RouteTable435074B8"
+    },
+    "SubnetId": {
+     "Ref": "GorfVpcPrivateSubnet2SubnetF7832214"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Gorf/GorfVpc/PrivateSubnet2/RouteTableAssociation"
+   }
+  },
+  "GorfVpcPrivateSubnet2DefaultRoute14377F2E": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "GorfVpcPrivateSubnet2RouteTable435074B8"
+    },
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "GorfVpcPublicSubnet2NATGatewayAFA32406"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Gorf/GorfVpc/PrivateSubnet2/DefaultRoute"
+   }
+  },
+  "GorfVpcIGW9A6552C9": {
+   "Type": "AWS::EC2::InternetGateway",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "Gorf/GorfVpc"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Gorf/GorfVpc/IGW"
+   }
+  },
+  "GorfVpcVPCGW1803CC12": {
+   "Type": "AWS::EC2::VPCGatewayAttachment",
+   "Properties": {
+    "VpcId": {
+     "Ref": "GorfVpc39238CDC"
+    },
+    "InternetGatewayId": {
+     "Ref": "GorfVpcIGW9A6552C9"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Gorf/GorfVpc/VPCGW"
+   }
+  },
+  "GorfEc2Cluster0D9CDF66": {
+   "Type": "AWS::ECS::Cluster",
+   "Metadata": {
+    "aws:cdk:path": "Gorf/GorfEc2Cluster/Resource"
+   }
+  },
+  "FargateServiceForGorfLBDA25BEAA": {
+   "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+   "Properties": {
+    "LoadBalancerAttributes": [
+     {
+      "Key": "deletion_protection.enabled",
+      "Value": "false"
+     }
+    ],
+    "Scheme": "internet-facing",
+    "SecurityGroups": [
+     {
+      "Fn::GetAtt": [
+       "FargateServiceForGorfLBSecurityGroup373C2534",
+       "GroupId"
+      ]
+     }
+    ],
+    "Subnets": [
+     {
+      "Ref": "GorfVpcPublicSubnet1SubnetECFA1C03"
+     },
+     {
+      "Ref": "GorfVpcPublicSubnet2Subnet21B0C38E"
+     }
+    ],
+    "Type": "application"
+   },
+   "DependsOn": [
+    "GorfVpcPublicSubnet1DefaultRoute555A7C12",
+    "GorfVpcPublicSubnet1RouteTableAssociation4ECF0300",
+    "GorfVpcPublicSubnet2DefaultRouteABDC982D",
+    "GorfVpcPublicSubnet2RouteTableAssociationE1C27B61"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "Gorf/FargateServiceForGorf/LB/Resource"
+   }
+  },
+  "FargateServiceForGorfLBSecurityGroup373C2534": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "Automatically created Security Group for ELB GorfFargateServiceForGorfLB9F9890CF",
+    "SecurityGroupIngress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow from anyone on port 80",
+      "FromPort": 80,
+      "IpProtocol": "tcp",
+      "ToPort": 80
+     }
+    ],
+    "VpcId": {
+     "Ref": "GorfVpc39238CDC"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Gorf/FargateServiceForGorf/LB/SecurityGroup/Resource"
+   }
+  },
+  "FargateServiceForGorfLBSecurityGrouptoGorfFargateServiceForGorfServiceSecurityGroup5954BA5980BAFBE460": {
+   "Type": "AWS::EC2::SecurityGroupEgress",
+   "Properties": {
+    "GroupId": {
+     "Fn::GetAtt": [
+      "FargateServiceForGorfLBSecurityGroup373C2534",
+      "GroupId"
+     ]
+    },
+    "IpProtocol": "tcp",
+    "Description": "Load balancer to target",
+    "DestinationSecurityGroupId": {
+     "Fn::GetAtt": [
+      "FargateServiceForGorfServiceSecurityGroup2583A76B",
+      "GroupId"
+     ]
+    },
+    "FromPort": 80,
+    "ToPort": 80
+   },
+   "Metadata": {
+    "aws:cdk:path": "Gorf/FargateServiceForGorf/LB/SecurityGroup/to GorfFargateServiceForGorfServiceSecurityGroup5954BA59:80"
+   }
+  },
+  "FargateServiceForGorfLBPublicListener8BBD580C": {
+   "Type": "AWS::ElasticLoadBalancingV2::Listener",
+   "Properties": {
+    "DefaultActions": [
+     {
+      "TargetGroupArn": {
+       "Ref": "FargateServiceForGorfLBPublicListenerECSGroup2E68B898"
+      },
+      "Type": "forward"
+     }
+    ],
+    "LoadBalancerArn": {
+     "Ref": "FargateServiceForGorfLBDA25BEAA"
+    },
+    "Port": 80,
+    "Protocol": "HTTP"
+   },
+   "Metadata": {
+    "aws:cdk:path": "Gorf/FargateServiceForGorf/LB/PublicListener/Resource"
+   }
+  },
+  "FargateServiceForGorfLBPublicListenerECSGroup2E68B898": {
+   "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+   "Properties": {
+    "HealthCheckPath": "/hello",
+    "Port": 80,
+    "Protocol": "HTTP",
+    "TargetGroupAttributes": [
+     {
+      "Key": "stickiness.enabled",
+      "Value": "false"
+     }
+    ],
+    "TargetType": "ip",
+    "VpcId": {
+     "Ref": "GorfVpc39238CDC"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Gorf/FargateServiceForGorf/LB/PublicListener/ECSGroup/Resource"
+   }
+  },
+  "FargateServiceForGorfTaskDefTaskRole35C0BF61": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Gorf/FargateServiceForGorf/TaskDef/TaskRole/Resource"
+   }
+  },
+  "FargateServiceForGorfTaskDefDF62A672": {
+   "Type": "AWS::ECS::TaskDefinition",
+   "Properties": {
+    "ContainerDefinitions": [
+     {
+      "Essential": true,
+      "Image": {
+       "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:19062762417056a8650f76724672d87788d479d8abb0c0d939a4cdeaa7b65642"
+      },
+      "LogConfiguration": {
+       "LogDriver": "awslogs",
+       "Options": {
+        "awslogs-group": {
+         "Ref": "FargateServiceForGorfTaskDefwebLogGroup3EF0760F"
+        },
+        "awslogs-stream-prefix": "FargateServiceForGorf",
+        "awslogs-region": {
+         "Ref": "AWS::Region"
+        }
+       }
+      },
+      "Name": "web",
+      "PortMappings": [
+       {
+        "ContainerPort": 80,
+        "Protocol": "tcp"
+       }
+      ]
+     }
+    ],
+    "Cpu": "256",
+    "ExecutionRoleArn": {
+     "Fn::GetAtt": [
+      "FargateServiceForGorfTaskDefExecutionRole38B3C6C3",
+      "Arn"
+     ]
+    },
+    "Family": "GorfFargateServiceForGorfTaskDefEC646386",
+    "Memory": "512",
+    "NetworkMode": "awsvpc",
+    "RequiresCompatibilities": [
+     "FARGATE"
+    ],
+    "RuntimePlatform": {
+     "CpuArchitecture": "ARM64",
+     "OperatingSystemFamily": "LINUX"
+    },
+    "TaskRoleArn": {
+     "Fn::GetAtt": [
+      "FargateServiceForGorfTaskDefTaskRole35C0BF61",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Gorf/FargateServiceForGorf/TaskDef/Resource"
+   }
+  },
+  "FargateServiceForGorfTaskDefwebLogGroup3EF0760F": {
+   "Type": "AWS::Logs::LogGroup",
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "Gorf/FargateServiceForGorf/TaskDef/web/LogGroup/Resource"
+   }
+  },
+  "FargateServiceForGorfTaskDefExecutionRole38B3C6C3": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Gorf/FargateServiceForGorf/TaskDef/ExecutionRole/Resource"
+   }
+  },
+  "FargateServiceForGorfTaskDefExecutionRoleDefaultPolicyF2F03DB0": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:GetDownloadUrlForLayer",
+        "ecr:BatchGetImage"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:",
+          {
+           "Ref": "AWS::Partition"
+          },
+          ":ecr:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":repository/",
+          {
+           "Fn::Sub": "cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}"
+          }
+         ]
+        ]
+       }
+      },
+      {
+       "Action": "ecr:GetAuthorizationToken",
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "FargateServiceForGorfTaskDefwebLogGroup3EF0760F",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "FargateServiceForGorfTaskDefExecutionRoleDefaultPolicyF2F03DB0",
+    "Roles": [
+     {
+      "Ref": "FargateServiceForGorfTaskDefExecutionRole38B3C6C3"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Gorf/FargateServiceForGorf/TaskDef/ExecutionRole/DefaultPolicy/Resource"
+   }
+  },
+  "FargateServiceForGorfService9F7636E7": {
+   "Type": "AWS::ECS::Service",
+   "Properties": {
+    "Cluster": {
+     "Ref": "GorfEc2Cluster0D9CDF66"
+    },
+    "DeploymentConfiguration": {
+     "MaximumPercent": 200,
+     "MinimumHealthyPercent": 50
+    },
+    "EnableECSManagedTags": false,
+    "HealthCheckGracePeriodSeconds": 60,
+    "LaunchType": "FARGATE",
+    "LoadBalancers": [
+     {
+      "ContainerName": "web",
+      "ContainerPort": 80,
+      "TargetGroupArn": {
+       "Ref": "FargateServiceForGorfLBPublicListenerECSGroup2E68B898"
+      }
+     }
+    ],
+    "NetworkConfiguration": {
+     "AwsvpcConfiguration": {
+      "AssignPublicIp": "DISABLED",
+      "SecurityGroups": [
+       {
+        "Fn::GetAtt": [
+         "FargateServiceForGorfServiceSecurityGroup2583A76B",
+         "GroupId"
+        ]
+       }
+      ],
+      "Subnets": [
+       {
+        "Ref": "GorfVpcPrivateSubnet1Subnet31CDE3A7"
+       },
+       {
+        "Ref": "GorfVpcPrivateSubnet2SubnetF7832214"
+       }
+      ]
+     }
+    },
+    "TaskDefinition": {
+     "Ref": "FargateServiceForGorfTaskDefDF62A672"
+    }
+   },
+   "DependsOn": [
+    "FargateServiceForGorfLBPublicListenerECSGroup2E68B898",
+    "FargateServiceForGorfLBPublicListener8BBD580C"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "Gorf/FargateServiceForGorf/Service/Service"
+   }
+  },
+  "FargateServiceForGorfServiceSecurityGroup2583A76B": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "Gorf/FargateServiceForGorf/Service/SecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "SecurityGroupIngress": [
+     {
+      "CidrIp": {
+       "Fn::GetAtt": [
+        "GorfVpc39238CDC",
+        "CidrBlock"
+       ]
+      },
+      "Description": "Allow http inbound from VPC",
+      "FromPort": 80,
+      "IpProtocol": "tcp",
+      "ToPort": 80
+     }
+    ],
+    "VpcId": {
+     "Ref": "GorfVpc39238CDC"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Gorf/FargateServiceForGorf/Service/SecurityGroup/Resource"
+   }
+  },
+  "FargateServiceForGorfServiceSecurityGroupfromGorfFargateServiceForGorfLBSecurityGroupA10371FB80AF7AB8FC": {
+   "Type": "AWS::EC2::SecurityGroupIngress",
+   "Properties": {
+    "IpProtocol": "tcp",
+    "Description": "Load balancer to target",
+    "FromPort": 80,
+    "GroupId": {
+     "Fn::GetAtt": [
+      "FargateServiceForGorfServiceSecurityGroup2583A76B",
+      "GroupId"
+     ]
+    },
+    "SourceSecurityGroupId": {
+     "Fn::GetAtt": [
+      "FargateServiceForGorfLBSecurityGroup373C2534",
+      "GroupId"
+     ]
+    },
+    "ToPort": 80
+   },
+   "Metadata": {
+    "aws:cdk:path": "Gorf/FargateServiceForGorf/Service/SecurityGroup/from GorfFargateServiceForGorfLBSecurityGroupA10371FB:80"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/31STU/DMAz9LdyzwOAA1zE+NAlB1SGuk5uZYtYlVeIMTVX/O266svIhTnl+eY7t55zryyt9dgIfYWLWm0lFhW6WDGajhFo1aM5181IbNX+1L9lcZbGoyCxjYZE77ohyFxmfoajwyB+5WQjOEDA5+yXuwO0i645H4Htg/IC9yjztBB4fXlhGL3gQ9J0cohlLr29btKyWaKIn3t97F+vUw7/EbekxhF/0wia+VWiCbuZVDFK9Uw3wDnwJ3VRhc4OvZGmY6SfjLANZ9CPukLtEvyPT+9TDVG5VA3ejBj2ra3E5ufXgYH0NFViD6x/pWEFgMpUoiqQgW+5kXX9npyG+xWMdyWz2oBnw6P5ZKssGBiNHYasItrrJXb/3dGZO8tKietRN51cQAnLQN85s0C+2UHafQlYsdzrH2gVi5/fXEFBVrhTzH1z5VXHAbatyDC763r6nyHVklR6SX1uKA6mLkUT2sE7utyrb85uzpxd6OtXTk/dANPHRMm1R5/35CWRlwo8OAwAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "Gorf/CDKMetadata/Default"
+   },
+   "Condition": "CDKMetadataAvailable"
+  }
+ },
+ "Outputs": {
+  "FargateServiceForGorfLoadBalancerDNSD938A54C": {
+   "Value": {
+    "Fn::GetAtt": [
+     "FargateServiceForGorfLBDA25BEAA",
+     "DNSName"
+    ]
+   }
+  },
+  "FargateServiceForGorfServiceURL4622B315": {
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "http://",
+      {
+       "Fn::GetAtt": [
+        "FargateServiceForGorfLBDA25BEAA",
+        "DNSName"
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  "LoadBalancerDNSForGorf": {
+   "Value": {
+    "Fn::GetAtt": [
+     "FargateServiceForGorfLBDA25BEAA",
+     "DNSName"
+    ]
+   }
+  }
+ },
+ "Conditions": {
+  "CDKMetadataAvailable": {
+   "Fn::Or": [
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "af-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ca-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "cn-north-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "cn-northwest-1"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-north-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-3"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "me-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "sa-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-east-2"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-west-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-west-2"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

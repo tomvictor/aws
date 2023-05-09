@@ -1,0 +1,310 @@
+{
+  "version": "31.0.0",
+  "artifacts": {
+    "Gorf.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "Gorf.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "Gorf": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "Gorf.template.json",
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/3cfb984f9d7a4ed2ab37b6dcf7b2b5f0d0b62907ae2fec2b00bfe92233764cb0.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "Gorf.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "Gorf.assets"
+      ],
+      "metadata": {
+        "/Gorf/GorfVpc/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GorfVpc39238CDC"
+          }
+        ],
+        "/Gorf/GorfVpc/PublicSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GorfVpcPublicSubnet1SubnetECFA1C03"
+          }
+        ],
+        "/Gorf/GorfVpc/PublicSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GorfVpcPublicSubnet1RouteTableE3975EB8"
+          }
+        ],
+        "/Gorf/GorfVpc/PublicSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GorfVpcPublicSubnet1RouteTableAssociation4ECF0300"
+          }
+        ],
+        "/Gorf/GorfVpc/PublicSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GorfVpcPublicSubnet1DefaultRoute555A7C12"
+          }
+        ],
+        "/Gorf/GorfVpc/PublicSubnet1/EIP": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GorfVpcPublicSubnet1EIP5C4E08ED"
+          }
+        ],
+        "/Gorf/GorfVpc/PublicSubnet1/NATGateway": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GorfVpcPublicSubnet1NATGateway794E44B3"
+          }
+        ],
+        "/Gorf/GorfVpc/PublicSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GorfVpcPublicSubnet2Subnet21B0C38E"
+          }
+        ],
+        "/Gorf/GorfVpc/PublicSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GorfVpcPublicSubnet2RouteTable8A16B9A8"
+          }
+        ],
+        "/Gorf/GorfVpc/PublicSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GorfVpcPublicSubnet2RouteTableAssociationE1C27B61"
+          }
+        ],
+        "/Gorf/GorfVpc/PublicSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GorfVpcPublicSubnet2DefaultRouteABDC982D"
+          }
+        ],
+        "/Gorf/GorfVpc/PublicSubnet2/EIP": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GorfVpcPublicSubnet2EIPC82E5C4C"
+          }
+        ],
+        "/Gorf/GorfVpc/PublicSubnet2/NATGateway": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GorfVpcPublicSubnet2NATGatewayAFA32406"
+          }
+        ],
+        "/Gorf/GorfVpc/PrivateSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GorfVpcPrivateSubnet1Subnet31CDE3A7"
+          }
+        ],
+        "/Gorf/GorfVpc/PrivateSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GorfVpcPrivateSubnet1RouteTable54A2C521"
+          }
+        ],
+        "/Gorf/GorfVpc/PrivateSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GorfVpcPrivateSubnet1RouteTableAssociation1FE44D3E"
+          }
+        ],
+        "/Gorf/GorfVpc/PrivateSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GorfVpcPrivateSubnet1DefaultRoute3EC59D2D"
+          }
+        ],
+        "/Gorf/GorfVpc/PrivateSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GorfVpcPrivateSubnet2SubnetF7832214"
+          }
+        ],
+        "/Gorf/GorfVpc/PrivateSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GorfVpcPrivateSubnet2RouteTable435074B8"
+          }
+        ],
+        "/Gorf/GorfVpc/PrivateSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GorfVpcPrivateSubnet2RouteTableAssociationD8662C64"
+          }
+        ],
+        "/Gorf/GorfVpc/PrivateSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GorfVpcPrivateSubnet2DefaultRoute14377F2E"
+          }
+        ],
+        "/Gorf/GorfVpc/IGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GorfVpcIGW9A6552C9"
+          }
+        ],
+        "/Gorf/GorfVpc/VPCGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GorfVpcVPCGW1803CC12"
+          }
+        ],
+        "/Gorf/GorfEc2Cluster/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GorfEc2Cluster0D9CDF66"
+          }
+        ],
+        "/Gorf/FargateServiceForGorf/LB/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FargateServiceForGorfLBDA25BEAA"
+          }
+        ],
+        "/Gorf/FargateServiceForGorf/LB/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FargateServiceForGorfLBSecurityGroup373C2534"
+          }
+        ],
+        "/Gorf/FargateServiceForGorf/LB/SecurityGroup/to GorfFargateServiceForGorfServiceSecurityGroup5954BA59:80": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FargateServiceForGorfLBSecurityGrouptoGorfFargateServiceForGorfServiceSecurityGroup5954BA5980BAFBE460"
+          }
+        ],
+        "/Gorf/FargateServiceForGorf/LB/PublicListener/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FargateServiceForGorfLBPublicListener8BBD580C"
+          }
+        ],
+        "/Gorf/FargateServiceForGorf/LB/PublicListener/ECSGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FargateServiceForGorfLBPublicListenerECSGroup2E68B898"
+          }
+        ],
+        "/Gorf/FargateServiceForGorf/LoadBalancerDNS": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FargateServiceForGorfLoadBalancerDNSD938A54C"
+          }
+        ],
+        "/Gorf/FargateServiceForGorf/ServiceURL": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FargateServiceForGorfServiceURL4622B315"
+          }
+        ],
+        "/Gorf/FargateServiceForGorf/TaskDef/TaskRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FargateServiceForGorfTaskDefTaskRole35C0BF61"
+          }
+        ],
+        "/Gorf/FargateServiceForGorf/TaskDef/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FargateServiceForGorfTaskDefDF62A672"
+          }
+        ],
+        "/Gorf/FargateServiceForGorf/TaskDef/web/LogGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FargateServiceForGorfTaskDefwebLogGroup3EF0760F"
+          }
+        ],
+        "/Gorf/FargateServiceForGorf/TaskDef/ExecutionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FargateServiceForGorfTaskDefExecutionRole38B3C6C3"
+          }
+        ],
+        "/Gorf/FargateServiceForGorf/TaskDef/ExecutionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FargateServiceForGorfTaskDefExecutionRoleDefaultPolicyF2F03DB0"
+          }
+        ],
+        "/Gorf/FargateServiceForGorf/Service/Service": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FargateServiceForGorfService9F7636E7"
+          }
+        ],
+        "/Gorf/FargateServiceForGorf/Service/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FargateServiceForGorfServiceSecurityGroup2583A76B"
+          }
+        ],
+        "/Gorf/FargateServiceForGorf/Service/SecurityGroup/from GorfFargateServiceForGorfLBSecurityGroupA10371FB:80": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FargateServiceForGorfServiceSecurityGroupfromGorfFargateServiceForGorfLBSecurityGroupA10371FB80AF7AB8FC"
+          }
+        ],
+        "/Gorf/LoadBalancerDNSForGorf": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LoadBalancerDNSForGorf"
+          }
+        ],
+        "/Gorf/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/Gorf/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/Gorf/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/Gorf/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "Gorf"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  }
+}
