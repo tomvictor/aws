@@ -28,7 +28,7 @@ class BonjourFargate(Stack):
             vpc=vpc
         )
 
-        container_image = ecs.ContainerImage.from_asset("src")
+        container_image = ecs.ContainerImage.from_asset("gorf_aws")
         fargate_service = ecs_patterns.ApplicationLoadBalancedFargateService(
             self, "FargateServiceForGorf",
             cluster=cluster,

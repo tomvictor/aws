@@ -1,4 +1,4 @@
-module template
+module gorf_aws
 
 go 1.20
 
