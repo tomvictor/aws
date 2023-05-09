@@ -4,4 +4,5 @@ import "github.com/gin-gonic/gin"
 
 func Urls(r *gin.Engine) {
 	r.GET("/hello", Hello)
+	r.GET("/db", Dynamo)
 }
