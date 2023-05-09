@@ -1,12 +1,12 @@
 package main
 
 import (
+	"gorf_aws/apps/hello"
+
 	"github.com/gin-gonic/gin"
 	"github.com/go-gorf/auth"
 	"github.com/go-gorf/gorf"
 )
-
-import "template/apps/hello"
 
 // add all the apps
 var apps = []gorf.GorfApp{
