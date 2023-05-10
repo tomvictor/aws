@@ -3,12 +3,12 @@ package hello
 import (
 	"context"
 	"fmt"
-	"log"
 	"net/http"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
+	"github.com/aws/aws-sdk-go-v2/service/dynamodb/types"
 
 	"github.com/gin-gonic/gin"
 )
@@ -29,20 +29,30 @@ func Dynamo(ctx *gin.Context) {
 	// Create a DynamoDB client
 	svc := dynamodb.NewFromConfig(cfg)
 
-	// Build the request with its input parameters
-	resp, err := svc.ListTables(context.TODO(), &dynamodb.ListTablesInput{
-		Limit: aws.Int32(5),
-	})
-	if err != nil {
-		log.Fatalf("failed to list tables, %v", err)
+	// Define the input parameters for the query
+	input := &dynamodb.QueryInput{
+		TableName:              aws.String("demo_table"),
+		KeyConditionExpression: aws.String("id = :id"),
+		ExpressionAttributeValues: map[string]types.AttributeValue{
+			":id": &types.AttributeValueMemberS{Value: "carl"},
+		},
 	}
 
-	fmt.Println("Tables:")
-	for _, tableName := range resp.TableNames {
-		fmt.Println(tableName)
+	// Execute the query and handle errors
+	result, err := svc.Query(context.TODO(), input)
+	if err != nil {
+		panic(err)
+	}
+
+	// Print the query results
+	resp := ""
+	for _, item := range result.Items {
+		fmt.Println(item)
+		resp = fmt.Sprintf("%v,%v", resp, item)
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{
 		"status": "ok",
+		"result": resp,
 	})
 }
