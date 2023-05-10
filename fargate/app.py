@@ -19,7 +19,8 @@ class BonjourFargate(Stack):
 
         # create dynamo db
         demo_table = aws_dynamodb.Table(
-            self, "device",
+            self, "demo_table",
+            table_name="demo_table",
             partition_key=aws_dynamodb.Attribute(
                 name="id",
                 type=aws_dynamodb.AttributeType.STRING
@@ -38,12 +39,35 @@ class BonjourFargate(Stack):
             vpc=vpc
         )
 
+
+        role = iam.Role(self, "GorfRole",
+            assumed_by=iam.ServicePrincipal("ecs-tasks.amazonaws.com"),
+            managed_policies=[
+                iam.ManagedPolicy.from_aws_managed_policy_name("AmazonDynamoDBFullAccess")
+            ]
+        )
+
+        policy = iam.Policy(self, "GorfPolicy",
+            policy_name="GorfPolicy",
+            statements=[
+                iam.PolicyStatement(
+                    effect=iam.Effect.ALLOW,
+                    actions=["dynamodb:Query"],
+                    resources=[f"{demo_table.table_arn}"]
+                    # resources=[f"arn:aws:dynamodb:eu-north-1:198104462023:table/demo_table"]
+                )
+            ]
+        )
+        policy.attach_to_role(role)
+
         container_image = ecs.ContainerImage.from_asset("gorf_aws")
         fargate_service = ecs_patterns.ApplicationLoadBalancedFargateService(
             self, "FargateServiceForGorf",
             cluster=cluster,
             task_image_options=ecs_patterns.ApplicationLoadBalancedTaskImageOptions(
                 image=container_image,
+                execution_role=role,
+                task_role=role
             ),
             runtime_platform=ecs.RuntimePlatform(
                     operating_system_family=ecs.OperatingSystemFamily.LINUX,
@@ -55,7 +79,8 @@ class BonjourFargate(Stack):
             path="/hello"
         )
 
-        demo_table.grant_read_write_data(fargate_service.task_definition.execution_role)
+        demo_table.grant_read_write_data(role)
+
         
 
 
@@ -64,9 +89,6 @@ class BonjourFargate(Stack):
             connection = ec2.Port.tcp(80),
             description="Allow http inbound from VPC"
         )
-
-        # demo_table.grant_write_data(fargate_service)
-        # demo_table.grant_read_data(fargate_service)
 
         CfnOutput(
             self, "LoadBalancerDNSForGorf",
