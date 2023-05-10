@@ -54,11 +54,11 @@ class BonjourFargate(Stack):
                     effect=iam.Effect.ALLOW,
                     actions=["dynamodb:Query"],
                     resources=[f"{demo_table.table_arn}"]
-                    # resources=[f"arn:aws:dynamodb:eu-north-1:198104462023:table/demo_table"]
                 )
             ]
         )
         policy.attach_to_role(role)
+        demo_table.grant_read_write_data(role)
 
         container_image = ecs.ContainerImage.from_asset("gorf_aws")
         fargate_service = ecs_patterns.ApplicationLoadBalancedFargateService(
@@ -78,10 +78,6 @@ class BonjourFargate(Stack):
         fargate_service.target_group.configure_health_check(
             path="/hello"
         )
-
-        demo_table.grant_read_write_data(role)
-
-        
 
 
         fargate_service.service.connections.security_groups[0].add_ingress_rule(
