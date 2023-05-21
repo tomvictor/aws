@@ -1,3 +1,4 @@
 go 1.20
 
 use ./fargate/gorf_aws
+use lambda_go/src/goapi
