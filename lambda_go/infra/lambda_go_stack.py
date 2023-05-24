@@ -19,6 +19,7 @@ class LambdaGoStack(Stack):
             function_name="ApiCorsLambda",
             description="Demo Api Lambda",
             runtime=_lambda.Runtime.GO_1_X,
-            entry="src/goapi",
+            entry="src/gorfapi",
             environment=ENV,
         )
+        lambda_fun.add_function_url()
