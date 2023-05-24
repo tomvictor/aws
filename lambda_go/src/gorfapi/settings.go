@@ -27,7 +27,7 @@ func LoadSettings() {
 func BootstrapRouter() *gin.Engine {
 	gorf.Apps = append(apps)
 	LoadSettings()
-	gorf.InitializeDatabase()
+	//gorf.InitializeDatabase()
 	gorf.SetupApps()
 	r := gin.Default()
 	gorf.RegisterApps(r)
