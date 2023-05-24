@@ -3,6 +3,7 @@ from aws_cdk import (
     Stack,
     aws_lambda as _lambda,
     aws_lambda_go_alpha,
+    aws_apigateway as apigateway,
 )
 from constructs import Construct
 
@@ -23,3 +24,16 @@ class LambdaGoStack(Stack):
             environment=ENV,
         )
         lambda_fun.add_function_url()
+
+        api = apigateway.LambdaRestApi(
+            self,
+            "myapi",
+            handler=lambda_fun,
+            proxy=False
+        )
+
+        items = api.root.add_resource("health")
+        items.add_method("GET")  # GET /items
+        # items.add_method("POST") # POST /items
+        # item = items.add_resource("{item}")
+        # item.add_method("GET") # GET /items/{item}
