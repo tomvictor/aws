@@ -16,9 +16,6 @@ var apps = []gorf.GorfApp{
 func LoadSettings() {
 	// jwt secret key
 	gorf.Settings.SecretKey = "GOo8Rs8ht7qdxv6uUAjkQuopRGnql2zWJu08YleBx6pEv0cQ09a"
-	gorf.Settings.DbConf = &gorf.SqliteBackend{
-		Name: "db.sqlite",
-	}
 	// app settings
 	// auth.AuthSettings.NewUserState = auth.AuthState(true)
 }
@@ -27,7 +24,8 @@ func LoadSettings() {
 func BootstrapRouter() *gin.Engine {
 	gorf.Apps = append(apps)
 	LoadSettings()
-	//gorf.InitializeDatabase()
+	_ = gorf.InitializeDatabase()
+
 	gorf.SetupApps()
 	r := gin.Default()
 	gorf.RegisterApps(r)
