@@ -34,6 +34,10 @@ class LambdaGoStack(Stack):
 
         items = api.root.add_resource("health")
         items.add_method("GET")  # GET /items
+
+        admin = api.root.add_resource("admin")
+        admin.add_method("GET")  # GET /items
+
         # items.add_method("POST") # POST /items
         # item = items.add_resource("{item}")
         # item.add_method("GET") # GET /items/{item}
