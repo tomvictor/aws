@@ -1,16 +1,17 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/go-gorf/auth"
-	"github.com/go-gorf/gorf"
 	"gorfapi/apps/hello"
+
+	"github.com/gin-gonic/gin"
+	"github.com/go-gorf/admin"
+	"github.com/go-gorf/gorf"
 )
 
 // add all the apps
 var apps = []gorf.GorfApp{
-	&auth.AuthApp,
 	&hello.HelloApp,
+	&admin.AdminApp,
 }
 
 func LoadSettings() {
