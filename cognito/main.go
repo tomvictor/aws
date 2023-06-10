@@ -22,6 +22,8 @@ func main() {
 	firstPool := DescribeCognitoUserPools(err, client, ctx)
 	DescribeUsers(firstPool, err, client, ctx)
 
+	// get access token
+	//client.InitiateAuth()
 }
 
 func DescribeUsers(firstPool types.UserPoolDescriptionType, err error, client *cognitoidentityprovider.Client, ctx context.Context) {
